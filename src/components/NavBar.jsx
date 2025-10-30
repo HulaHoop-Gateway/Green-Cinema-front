@@ -16,6 +16,7 @@ function NavBar({ isLoggedIn, setIsLoggedIn }) {
       <ul>
         <li><Link to="/booking">예매</Link></li>
         <li><Link to="/history">이용내역</Link></li>
+        <li><Link to="/movies">영화</Link></li>
         <li><Link to="/cinemas">영화관</Link></li>
         <li><Link to="/events">이벤트</Link></li>
         <li><Link to="/store">스토어</Link></li>

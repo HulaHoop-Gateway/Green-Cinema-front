@@ -8,6 +8,7 @@ import History from './pages/History';
 import Booking from './pages/Booking';
 import CinemaList from './pages/CinemaList'; // ✅ 추가
 import MainLayout from './pages/MainLayout'; // ✅ 정확한 경로로 import
+import Movies from './pages/Movies'; // ✅ 이름 통일
 
 
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/history" element={<History />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/cinemas" element={<CinemaList />} /> {/* ✅ 추가 */}
+         <Route path="/movies" element={<Movies />} /> {/* ✅ 영화 목록 경로 */}
       </Routes>
     </Router>
   );
