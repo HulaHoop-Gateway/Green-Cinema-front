@@ -1,16 +1,24 @@
 .header {
+  height: 80px;
+  padding-top: 10px; /* ✅ 로고 위 여백 */
+  padding-bottom: 10px;
+  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 20px 40px;
-  background-color: #000;
-  color: white;
-  margin-bottom: 0;
+  background-color: black;
+  position: relative;
+  z-index: 10;
 }
 
+
+
+
 .logo {
-  font-size: 2rem;
-  font-weight: bold;
+  height: 50px;
+  object-fit: contain;
+  
+
 }
 
 .auth a {
@@ -20,10 +28,12 @@
 }
 
 .auth-link {
-  color: #6a1b9a; /* 회원가입과 동일한 색상 */
-  font-weight: bold;
-  text-decoration: none;
-  margin-left: 1rem;
-  cursor: pointer;
-   margin-left: 16px; /* ✅ 여백 조절 */
+  color: #6a1b9a; /* ✅ 로그인과 동일한 보라색 */
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 11;
 }
+
+

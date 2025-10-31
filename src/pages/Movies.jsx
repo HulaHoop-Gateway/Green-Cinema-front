@@ -29,7 +29,7 @@ const Movies = () => {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div style={{ padding: '2rem', paddingTop: '100px' }}>
       <h1 style={{ textAlign: 'center' }}>🎟️ 예매 페이지</h1>
       <p style={{ textAlign: 'center' }}>상영 중인 영화를 선택하세요!</p>
 

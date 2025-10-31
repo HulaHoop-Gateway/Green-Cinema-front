@@ -11,7 +11,7 @@ const texts = [
   '🎬 10월 22일 개봉 예정',
 ];
 
-const positions = ['center center', 'center center', 'left center'];
+const positions = ['center center', 'center center', 'center center'];
 
 
 const Carousel = ({ currentSlide, setCurrentSlide }) => {
@@ -28,9 +28,11 @@ const Carousel = ({ currentSlide, setCurrentSlide }) => {
       className="carousel"
       style={{
         backgroundImage: `url(${images[currentSlide]})`,
-        backgroundSize: 'cover',
+        backgroundSize: 'contain',
         backgroundPosition: positions[currentSlide],
         backgroundRepeat: 'no-repeat',
+        backgroundColor: 'black', // ✅ 여백을 자연스럽게 처리
+ 
       }}
     >
       <div className="arrow left" onClick={() => handleArrowClick('left')}>◀</div>

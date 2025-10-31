@@ -46,7 +46,7 @@ function CinemaList() {
     seats.filter((s) => Number(s.screeningNum) === Number(screeningNum));
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div style={{ padding: '2rem', paddingTop: '100px' }}>
       <h2>영화관 → 상영관 → 좌석 목록</h2>
 
       {loading && <p>조회 중...</p>}
