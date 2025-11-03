@@ -27,8 +27,9 @@ function History() {
         <ul>
           {reservations.map((r) => (
             <li key={r.reservationNum}>
-              🎫 예약번호: {r.reservationNum} / 영화번호: {r.movieNum} / 좌석코드: {r.seatCode} / 시간: {r.paymentTime} / 상태: {r.status}
+            🎫 예약번호: {r.reservationNum} / 좌석번호: {r.seatNumber} / 결제시간: {r.paymentTime} / 상태: {r.state}
             </li>
+
           ))}
         </ul>
       )}
