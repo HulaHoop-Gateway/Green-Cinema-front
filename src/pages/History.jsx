@@ -5,17 +5,17 @@ function History() {
   const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
-    const userCode = localStorage.getItem('userCode'); 
-      console.log('userCode:', userCode);
-    // 로그인 시 저장된 값
+    const userCode = localStorage.getItem('userCode');
+    console.log('userCode:', userCode);
     if (!userCode) return;
 
-    axios.get(`http://localhost:8082/reservation/history?userCode=${userCode}`)
-      .then(res => {
-         console.log('예약 내역 응답:', res.data); // ✅ 확인
+    axios
+      .get(`http://localhost:8082/reservation/history?userCode=${userCode}`)
+      .then((res) => {
+        console.log('예약 내역 응답:', res.data);
         setReservations(res.data);
       })
-      .catch(err => console.error('예약 내역 불러오기 실패', err));
+      .catch((err) => console.error('예약 내역 불러오기 실패', err));
   }, []);
 
   return (
@@ -26,10 +26,11 @@ function History() {
       ) : (
         <ul>
           {reservations.map((r) => (
-            <li key={r.reservationNum}>
-            🎫 예약번호: {r.reservationNum} / 좌석번호: {r.seatNumber} / 결제시간: {r.paymentTime} / 상태: {r.state}
+            <li key={r.reservationNum} style={{ marginBottom: '1rem' }}>
+              🎫 예약번호: {r.reservationNum} / 좌석번호: {r.seatNumber} / 결제시간: {r.paymentTime} / 상태: {r.state}
+              <br />
+              📞 전화번호: {r.userDTO?.phoneNumber || '정보 없음'}
             </li>
-
           ))}
         </ul>
       )}
