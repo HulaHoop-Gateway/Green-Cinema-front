@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './NavBar.css';
 
 function NavBar({ isLoggedIn, setIsLoggedIn }) {
@@ -11,15 +11,27 @@ function NavBar({ isLoggedIn, setIsLoggedIn }) {
     navigate('/');
   };
 
+  const goIfLoggedIn = (path) => {
+    const userCode = localStorage.getItem('userCode');
+    if (!userCode) {
+      alert('로그인이 필요한 서비스입니다.');
+      return;
+    }
+    navigate(path);
+  };
+
   return (
-    <nav className="navbar">
+    <nav className="menu-bar">
       <ul>
-        <li><Link to="/booking">예매</Link></li>
-        <li><Link to="/history">이용내역</Link></li>
-        <li><Link to="/movies">영화</Link></li>
-        <li><Link to="/cinemas">영화관</Link></li>
-        <li><Link to="/events">이벤트</Link></li>
-        <li><Link to="/store">스토어</Link></li>
+        <li><button onClick={() => goIfLoggedIn('/booking')}>예매</button></li>
+        <li><button onClick={() => goIfLoggedIn('/history')}>이용내역</button></li>
+        <li><button onClick={() => navigate('/movies')}>영화</button></li>
+        <li><button onClick={() => navigate('/cinemas')}>영화관</button></li>
+        <li><button onClick={() => navigate('/events')}>이벤트</button></li>
+        <li><button onClick={() => navigate('/store')}>스토어</button></li>
+        {isLoggedIn && (
+          <li><button onClick={handleLogout}>로그아웃</button></li>
+        )}
       </ul>
     </nav>
   );

@@ -112,4 +112,6 @@ function CinemaListFromSeatsOnly() {
   );
 }
 
+
 export default CinemaListFromSeatsOnly;
+

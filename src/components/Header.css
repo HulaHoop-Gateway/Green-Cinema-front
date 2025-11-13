@@ -1,39 +1,57 @@
 .header {
-  height: 80px;
-  padding-top: 10px; /* ✅ 로고 위 여백 */
-  padding-bottom: 10px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: 140px;                  /* ✅ 충분한 높이 확보 */
   background-color: black;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  box-sizing: border-box;
   z-index: 10;
 }
 
+.header-left {
+  width: 120px;
+}
 
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.header-right {
+  width: 120px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
 
-.logo {
+.main-logo {
   height: 50px;
   object-fit: contain;
-  
-
+  display: block;
+  margin-top: 40px; /* ✅ 기존보다 조금 더 아래로 */
 }
 
-.auth a {
-  color: white;
-  margin-left: 10px;
-  text-decoration: none;
-}
+
 
 .auth-link {
-  color: #6a1b9a; /* ✅ 로그인과 동일한 보라색 */
-  position: absolute;
-  right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 11;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid white;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  margin-top: 32px; /* ✅ 로그인 버튼도 더 아래로 */
 }
 
 
+
+.auth-link:hover {
+  background-color: white;
+  color: black;
+}

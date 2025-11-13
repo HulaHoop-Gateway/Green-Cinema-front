@@ -1,12 +1,18 @@
 .carousel {
   width: 100vw;
-  height: calc(100vh - 100px); /* ✅ 헤더 높이 + 여백 고려 */
+  height: calc(100vh - 100px);
   margin-top: 0;
   padding: 0;
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
+
+  background-size: cover;           /* ✅ 이미지 전체 보이게 */
+  background-position: center center; /* ✅ 정확히 가운데 정렬 */
+  background-repeat: no-repeat;
+  background-color: black;
 }
+
 
 
 
