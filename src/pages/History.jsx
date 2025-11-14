@@ -9,7 +9,7 @@ function History({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const phoneNumber = localStorage.getItem('phoneNumber'); // ✅ 변경된 부분
+    const phoneNumber = localStorage.getItem('phoneNumber');
     if (!phoneNumber) {
       setIsLoggedIn(false);
       navigate('/', { replace: true });
@@ -17,7 +17,7 @@ function History({ isLoggedIn, setIsLoggedIn }) {
     }
 
     axios
-      .get(`http://localhost:8082/reservation/history?phoneNumber=${phoneNumber}`) // ✅ 핵심 변경
+      .get(`http://localhost:8082/reservation/history?phoneNumber=${phoneNumber}`)
       .then((res) => setReservations(res.data))
       .catch((err) => console.error('예약 내역 불러오기 실패', err));
   }, [isLoggedIn]);
@@ -82,10 +82,16 @@ function History({ isLoggedIn, setIsLoggedIn }) {
                 <tr key={r.reservationNum}>
                   <td>{r.reservationNum}</td>
                   <td>
-                    {r.seatDTO?.seatRealNum || '정보 없음'} (
+                    {r.seatDTO
+                      ? `${r.seatDTO.rowLabel}${r.seatDTO.colNum}`
+                      : '정보 없음'} (
                     {r.seatDTO?.seatType || '타입 없음'})
                   </td>
-                  <td>{Number(r.seatDTO?.sale)?.toLocaleString()}원</td>
+                  <td>
+                    {r.seatDTO?.sale != null
+                      ? `${Number(r.seatDTO.sale).toLocaleString()}원`
+                      : '0원'}
+                  </td>
                   <td>{r.scheduleDTO?.movieInfo?.movieTitle || '제목 없음'}</td>
                   <td>
                     {r.scheduleDTO?.screeningDate
