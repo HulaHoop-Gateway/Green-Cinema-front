@@ -9,21 +9,22 @@ function History({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userCode = localStorage.getItem('userCode');
-    if (!userCode) {
+    const phoneNumber = localStorage.getItem('phoneNumber'); // ✅ 변경된 부분
+    if (!phoneNumber) {
       setIsLoggedIn(false);
       navigate('/', { replace: true });
       return;
     }
 
     axios
-      .get(`http://localhost:8082/reservation/history?userCode=${userCode}`)
+      .get(`http://localhost:8082/reservation/history?phoneNumber=${phoneNumber}`) // ✅ 핵심 변경
       .then((res) => setReservations(res.data))
       .catch((err) => console.error('예약 내역 불러오기 실패', err));
   }, [isLoggedIn]);
 
   const handleLogout = () => {
     localStorage.removeItem('userCode');
+    localStorage.removeItem('phoneNumber');
     setIsLoggedIn(false);
     navigate('/');
   };
@@ -32,10 +33,15 @@ function History({ isLoggedIn, setIsLoggedIn }) {
     <div className="history-page">
       {/* 헤더 */}
       <header className="history-header">
-        <img src={logo} alt="Logo" className="logo history-logo" onClick={() => navigate('/')} />        
+        <img
+          src={logo}
+          alt="Logo"
+          className="logo history-logo"
+          onClick={() => navigate('/')}
+        />
         <div className="header-right">
-        <button onClick={() => navigate('/mypage')}>마이페이지</button>
-        <button onClick={handleLogout}>로그아웃</button>
+          <button onClick={() => navigate('/mypage')}>마이페이지</button>
+          <button onClick={handleLogout}>로그아웃</button>
         </div>
       </header>
 
@@ -75,15 +81,32 @@ function History({ isLoggedIn, setIsLoggedIn }) {
               {reservations.map((r) => (
                 <tr key={r.reservationNum}>
                   <td>{r.reservationNum}</td>
-                  <td>{r.seatDTO?.seatRealNum || '정보 없음'} ({r.seatDTO?.seatType || '타입 없음'})</td>
+                  <td>
+                    {r.seatDTO?.seatRealNum || '정보 없음'} (
+                    {r.seatDTO?.seatType || '타입 없음'})
+                  </td>
                   <td>{Number(r.seatDTO?.sale)?.toLocaleString()}원</td>
                   <td>{r.scheduleDTO?.movieInfo?.movieTitle || '제목 없음'}</td>
-                  <td>{r.scheduleDTO?.screeningDate ? new Date(r.scheduleDTO.screeningDate).toLocaleString() : '날짜 없음'}</td>
-                  <td>{r.scheduleDTO?.theaterInfo?.cinemaFranchisedto?.branchName || '지점 없음'}</td>
+                  <td>
+                    {r.scheduleDTO?.screeningDate
+                      ? new Date(r.scheduleDTO.screeningDate).toLocaleString()
+                      : '날짜 없음'}
+                  </td>
+                  <td>
+                    {r.scheduleDTO?.theaterInfo?.cinemaFranchisedto?.branchName ||
+                      '지점 없음'}
+                  </td>
                   <td>{r.userDTO?.phoneNumber || '정보 없음'}</td>
-                  <td>{r.scheduleDTO?.theaterInfo?.cinemaFranchisedto?.address || '주소 없음'}</td>
+                  <td>
+                    {r.scheduleDTO?.theaterInfo?.cinemaFranchisedto?.address ||
+                      '주소 없음'}
+                  </td>
                   <td>{r.state}</td>
-                  <td>{r.paymentTime ? new Date(r.paymentTime).toLocaleString() : '시간 없음'}</td>
+                  <td>
+                    {r.paymentTime
+                      ? new Date(r.paymentTime).toLocaleString()
+                      : '시간 없음'}
+                  </td>
                 </tr>
               ))}
             </tbody>
