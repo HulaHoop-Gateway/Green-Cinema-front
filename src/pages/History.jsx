@@ -16,8 +16,9 @@ function History({ isLoggedIn, setIsLoggedIn }) {
       return;
     }
 
+    // ✅ 그룹화된 예약 내역 조회
     axios
-      .get(`http://localhost:8082/reservation/history?phoneNumber=${phoneNumber}`)
+      .get(`http://localhost:8082/reservation/history/grouped?phoneNumber=${phoneNumber}`)
       .then((res) => setReservations(res.data))
       .catch((err) => console.error('예약 내역 불러오기 실패', err));
   }, [isLoggedIn]);
@@ -71,25 +72,24 @@ function History({ isLoggedIn, setIsLoggedIn }) {
                 <th>영화</th>
                 <th>상영일</th>
                 <th>영화관</th>
+                <th>상영관</th>
                 <th>전화번호</th>
-                <th>주소</th>
                 <th>상태</th>
                 <th>결제시간</th>
               </tr>
             </thead>
             <tbody>
               {reservations.map((r) => (
-                <tr key={r.reservationNum}>
-                  <td>{r.reservationNum}</td>
+                <tr key={r.firstReservationNum || r.bookingGroupId}>
+                  <td>{r.firstReservationNum || '정보 없음'}</td>
                   <td>
-                    {r.seatDTO
-                      ? `${r.seatDTO.rowLabel}${r.seatDTO.colNum}`
-                      : '정보 없음'} (
-                    {r.seatDTO?.seatType || '타입 없음'})
+                    {r.seatLabels && r.seatLabels.length > 0
+                      ? r.seatLabels.join(', ')
+                      : '정보 없음'}
                   </td>
                   <td>
-                    {r.seatDTO?.sale != null
-                      ? `${Number(r.seatDTO.sale).toLocaleString()}원`
+                    {r.totalAmount != null
+                      ? `${Number(r.totalAmount).toLocaleString()}원`
                       : '0원'}
                   </td>
                   <td>{r.scheduleDTO?.movieInfo?.movieTitle || '제목 없음'}</td>
@@ -102,11 +102,12 @@ function History({ isLoggedIn, setIsLoggedIn }) {
                     {r.scheduleDTO?.theaterInfo?.cinemaFranchisedto?.branchName ||
                       '지점 없음'}
                   </td>
-                  <td>{r.userDTO?.phoneNumber || '정보 없음'}</td>
                   <td>
-                    {r.scheduleDTO?.theaterInfo?.cinemaFranchisedto?.address ||
-                      '주소 없음'}
+                    {r.scheduleDTO?.theaterInfo?.screeningNumber
+                      ? `${r.scheduleDTO.theaterInfo.screeningNumber}관`
+                      : '정보 없음'}
                   </td>
+                  <td>{r.phoneNumber || '정보 없음'}</td>
                   <td>{r.state}</td>
                   <td>
                     {r.paymentTime
