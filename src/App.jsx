@@ -12,10 +12,13 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // ✅ 앱 시작 시 무조건 로그아웃 상태로 초기화
-    localStorage.removeItem('userCode');
-    localStorage.removeItem('phoneNumber');
-    setIsLoggedIn(false);
+    // 앱 시작 시 localStorage에 정보가 있으면 로그인 유지
+    const userCode = localStorage.getItem('userCode');
+    if (userCode) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
   }, []);
 
 
