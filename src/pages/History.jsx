@@ -9,7 +9,7 @@ function History({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const phoneNumber = localStorage.getItem('phoneNumber');
+    const phoneNumber = sessionStorage.getItem('phoneNumber');
     if (!phoneNumber) {
       setIsLoggedIn(false);
       navigate('/', { replace: true });
@@ -24,8 +24,8 @@ function History({ isLoggedIn, setIsLoggedIn }) {
   }, [isLoggedIn]);
 
   const handleLogout = () => {
-    localStorage.removeItem('userCode');
-    localStorage.removeItem('phoneNumber');
+    sessionStorage.removeItem('userCode');
+    sessionStorage.removeItem('phoneNumber');
     setIsLoggedIn(false);
     navigate('/');
   };

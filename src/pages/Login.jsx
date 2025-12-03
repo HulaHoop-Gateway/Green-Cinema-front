@@ -20,13 +20,13 @@ function Login({ setIsLoggedIn }) {
 
       if (response.status === 200 && response.data.userCode) {
         // ✅ 로그인 정보 로컬스토리지 저장
-        localStorage.setItem('userCode', response.data.userCode);
+        sessionStorage.setItem('userCode', response.data.userCode);
 
         // ✅ 전화번호도 함께 저장 (백엔드 응답에 phoneNumber or phoneNum 확인)
         if (response.data.phoneNumber) {
-          localStorage.setItem('phoneNumber', response.data.phoneNumber);
+          sessionStorage.setItem('phoneNumber', response.data.phoneNumber);
         } else if (response.data.phoneNum) {
-          localStorage.setItem('phoneNumber', response.data.phoneNum);
+          sessionStorage.setItem('phoneNumber', response.data.phoneNum);
         }
 
         setIsLoggedIn(true);
@@ -42,8 +42,8 @@ function Login({ setIsLoggedIn }) {
       }
 
       // 로그인 상태 초기화
-      localStorage.removeItem('userCode');
-      localStorage.removeItem('phoneNumber');
+      sessionStorage.removeItem('userCode');
+      sessionStorage.removeItem('phoneNumber');
       setIsLoggedIn(false);
       navigate('/');
     }
@@ -59,7 +59,7 @@ function Login({ setIsLoggedIn }) {
         <button onClick={() => navigate('/booking')}>예매</button>
         <button
           onClick={() => {
-            const userCode = localStorage.getItem('userCode');
+            const userCode = sessionStorage.getItem('userCode');
             if (!userCode) {
               alert('로그인이 필요한 서비스입니다');
               return;
