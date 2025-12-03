@@ -12,8 +12,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // 앱 시작 시 localStorage에 정보가 있으면 로그인 유지
-    const userCode = localStorage.getItem('userCode');
+    // 앱 시작 시 sessionStorage에 정보가 있으면 로그인 유지 (창 닫으면 자동 로그아웃)
+    const userCode = sessionStorage.getItem('userCode');
     if (userCode) {
       setIsLoggedIn(true);
     } else {

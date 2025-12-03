@@ -6,13 +6,13 @@ function NavBar({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('userCode');
+    sessionStorage.removeItem('userCode');
     setIsLoggedIn(false);
     navigate('/');
   };
 
   const goIfLoggedIn = (path) => {
-    const userCode = localStorage.getItem('userCode');
+    const userCode = sessionStorage.getItem('userCode');
     if (!userCode) {
       alert('로그인이 필요한 서비스입니다.');
       return;
